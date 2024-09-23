@@ -1,0 +1,84 @@
+\chapter{Introduction}
+
+The model explored in this course will be SVM - Support Vector Machine.
+The course is structured in two units: deterministic optimization techniques for ML (gradient descent et sim.) and stochastic optimization techniques for ML.
+
+\section{Reference Books}
+\begin{itemize}
+  \item Learning with Kernels: Support Vector Machines, Regularization, Optimization, and Beyond
+  \item Pattern Recognition and Machine Learning
+  \item Nonlinear Programming, Athena Scientific
+  \item Numerical Optimization, Springer-Verlag
+  \item Optimization Methods for Large-Scale Machine Learning, Bottou et. al.
+\end{itemize}
+
+\section{Mathematical Framework for ML}
+As a general framework we can define this formal formulation of learning (supervised, unsupervised) problems:
+\begin{align}
+x \in X \subseteq R^m \\
+y \in Y \subseteq R
+\end{align}
+
+Data: $D = {(x_i, y_i), i=1,\dots,N, x_i \in X, y_i \in Y}$
+Goal: model (prediction function $F$) that makes predictions on new examples. Namely $F: X \rightarrow Y$ that gives labels $y$ to new examples $x$.
+
+See \textit{MNIST database}
+
+\subsection{Supervised Learning}
+Binary classification: $D = {(x_i, y_i), i=1,\dots,N, x_i \in X, y_i \in {-1, 1}}$
+
+Multi-class classification: $D = {(x_i, y_i), i=1,\dots,N, x_i \in X, y_i \in {1, 2, \dots, N}}$
+
+Regression: $D = {(x_i, y_i), i=1,\dots,N, x_i \in X, y_i \in R}$
+
+\subsection{Unsupervised Learning Tasks}
+We have $x$ vectors without the associated labels:
+\begin{itemize}
+  \item Novelty detection: detect an element not compliant to the training set
+  \item Clustering problems: group the training set into classes
+\end{itemize}
+
+\subsection{Main Steps of Learning Systems}
+\begin{enumerate}
+  \item Problem formulation
+  \item Collect the examples. Following sets are disjunct
+    \begin{itemize}
+      \item Training set: learn from examples
+      \item Validation set: model validation and tuning
+      \item Testing set: performance estimation of the selected model
+    \end{itemize}
+  \item Represent good examples that emphasize the features of the problems
+  \item Choose learning algo
+  \item Test and Validate
+\end{enumerate}
+
+\section{Learning Methodologies}
+Given a training set, try to infer a scheme that models and fits the data, in a general way: \textbf{generalization} property is needed to describe (new) examples that are not in the training set.
+
+Some issues can arise: \textbf{overfitting} and \textbf{underfitting}.
+
+\textbf{Overfitting}: the model minimizes the error on the training set, involving a large error on new examples
+
+\subsection{Mathematical Setting}
+The hypothesis space $H$ is the space of the functions suitable to describe relationship between $x$ and $y$.
+
+The model $f^*$ must solve $min_{f \in H} \sum_{i=1}^N V(y_i, f(x_i)) + \lambda \|f\|^2$
+
+The first part ($V(y_i, f(x_i))$), called "rischio empirico [IT]", represents the error of $f$ on the training set. If this was the only part of the above formula, perfect conditions for overfitting would be created.
+
+The second addend ($\|f\|^2$) measures the complexity of the model. It is required to prioritize low complexity solutions (hence avoid overfitting).
+
+$\lambda$ is a control term ("parametro di regolarizzazione [IT]") to balance the error on the training set and the complexity of the model.
+
+Stochastic optimization pops out from the need to keep evaluation of error function low. For eg. when $N$ is too large.
+
+Model $f*$ depends on several factors:
+\begin{itemize}
+  \item Hypothesis space
+  \item Definition of $\|f\|$ on $H$
+  \item Definition of loss function $V(y, f(x))$
+\end{itemize}
+
+SVM suggets the choice of $H$ and $f^*(x) = min_{f \in H} \sum_{i=1}^N c_i^* K(x, x_i) + b^*$.
+
+Where $K$ is a kernel: linear, polynomial, gaussian. The choice of $V$ depends on the type of learning problem.

@@ -1,0 +1,150 @@
+\chapter{Refresher on Preparatory Math}
+
+See: machine learning seeds; what are they?
+
+\section{Vector Algebra}
+We will typically use vectors that belong to the number set of real numbers; also, we will typically work in a generic nth dimension.
+Complex numbers are rarely used rarely used, mainly in the field of ML applied to physics.
+
+Scalar multiplication has different properties depending on the sign of the scalar.
+If the scalar is positive, it expands the vector.
+If the scalar is negative, it flips components of the original vector.
+If the scalar is less than one, it shrinks the vector.
+
+Every vector of $R^n$ can be decomposed as a linear combination of standard bases.
+Even if it may seem a really theoretical topic, there are some practical applications that make use of this standard bases: one-hot encoding is the picked examples.
+
+The norm of a vector is its length and represents its distance from the origin. It provides an "induced" order, useful to compare vectors wrt the origin or between them.
+Give the norm of a vector, it holds that:
+\begin{itemize}
+  \item $|v| \Leftrightarrow v=0$
+  \item $|\lambda v| = |\lambda| |v|$
+  \item $|v + w| \leq |v| + |w|$
+\end{itemize}
+
+Beware that cosine similarity is not a distance metric, since it doesn't meet the triangle inequality.
+
+The dot product of two vectors is designated by: $<v, w> = v \cdot w = |v| \cdot |w| \cdot \cos \theta$.
+It is a function with the following domain and codomain: $R^n \rightarrow R$
+
+The cross product cannot always be defined, i.e. cannot be defined in every numeric set. The direction can be determined with the right-hand rule.
+Indeed, this type of product results in another vector and not a scalar like in the dot product.
+
+The affine variety is an algebraic set such that it is centered in $x_0$ and shifted by $\alpha S$ given a vector $S$. Is it defined by the set of affine tranformations:
+$A = x_0 + \alpha S$
+
+Dato un vettore $s \in R^n$ si dice varietà affine di $R^n$ passante per $x_0$ e traslato di $\alpha$ ??? -> TODO
+
+\section{Multivariate Analysis}
+The one-side directional derifative of a function f wrt the direction $s$ in $x_0$ is the following limit, if it exists: TODO limit
+
+TODO si ossreva che 
+
+
+If both limits exist, are finite and equals for each version approaching x_0, the derivative can be defined.
+
+The partial derivative is denoted by ??? and can be computed as follow (follows?): 
+
+The i-th partial derifvative of f in x_0 is defined as follows: ???
+
+The gradient of f in x_0 is the vector of partial derifatives evaluated in the given point x_0: "nabla" operator
+
+In this case the function is differentiable in the given point.
+f is (generally) differentiable if the gradient of the function exists for each point of the domain (typically $R$).
+
+A regular function is defined a s funciton whose partial derivatives are smooth for each point ???
+
+See: random forest and smooth function (class $C^1$ and $C^2$)
+
+The Hessian matrix is the matrix of double derivatives with respect to all the possible pairs of indexes (all possible combinations).
+
+Given a function that maps vectors into vectors ($R^n \rightarrow R^m$) the Jacobian matrix of f in a point x: ???
+
+Doubling the number of times the derivation is applied, we obtain a squared gradient o hessian of $x(\alpha)$ along (???) a vector s.
+This gives us the curvature of the function along a given vector.
+
+Funzione di Rosenbrock: ???
+First step calculate the hessian matrix of the function, set the function in the point equals to one.
+
+\subsection{Optimization}
+Linear (objective) function in an n-dimensional space, marked as $l: R^n \rightarrow R$, can be expressed as:
+$l(x) = a^T x + b$ where $a$ and $b$ are constants.
+
+Quadratic (objective) function $q: R^n \rightarrow R$:
+$q(x) = \frac{1}{2}x^t Q x + b^t x + c$
+
+Let Q be a symmetric matrix of order n, b in n-dimensional space and c scalar constant.
+The hessian of the above function is: $\nabla q(x) = Qx + b$
+
+Notice how $\frac{1}{2}$ comes in useful to make derivative coefficients cleaner.
+
+\subsection{Data Fitting}
+A least squares fitting is often picked to fit a polynomial on a set of points $(x_i, y_i) \space \forall i=1,...,m$.
+
+Given $y$ (vertical) vector of original data (or observations), a (vertical) vector of coefficients $a$ and the Vandarmonde matrix of terms $V$, we can put the error variable $E$ equals to $y-Va$.
+The error is hence minimized in ordert to obtain the best fitting; we look for $min_{a \in R^{n+1}} \|E\|^2 = min_{a \in R^{n+1}} E^T E$
+That can be further developed in $min_{a \in R^{n+1}} (y-Va)^T (y-Va) = min_{a \in R^{n+1}} y^T y + a^T V^T V a - 2y^TVa$.
+
+\subsection{Taylor Approximation}
+Even in taylor series the quadratic form appears in the formula, the last addend $\frac{1}{2} h^T \nabla^2 f(x) \nabla$ has the same form of $x^t Q x$.
+
+\section{Convex Analysis}
+Let $\omega \subset R^N$ such be a convex set for each $(x, y) \in \omega$, thus it holds that $\alpha x + ( 1 - \alpha ) y$
+
+Almost the same meaning is associated to a convex function. A function is said to be convex if and only if $f(\alpha x + ( 1 - \alpha ) y) \leq \alpha f(x) + ( 1 - \alpha ) f(y)$
+
+See: epigraph set
+
+Why convexity is so important? Two fundamental properties can be expressed on $C^1$ or $C^2$ convex function defined on a convex set $\Omega \subset R^n$.
+
+$f: \Omega \rightarrow R$ of class $C^1$:
+\begin{itemize}
+  \item f is convex if and only if $f(z) \geq f(y) + \nabla f(y)^T (z-y)$. The RHS a Taylor approximation truncated at the first order.
+  \item TODO
+\end{itemize}
+
+$f: \Omega \rightarrow R$ of class $C^2$:
+\begin{itemize}
+  \item f is convex if and only if $\nabla^2 f(x)$ is semidefinite positive for each x in the domain ($x^T A x \geq 0 \space \forall x \in R^n$). This can be considered an extension (generalization) of the concavity in $R \rightarrow R$ functions
+  \item TODO. Beware that it's an implication and not a double implication.
+\end{itemize}
+
+TODO: how quadratic funcion is convex if the quadratic matrix is semidefinite positive or just definite positive.
+
+See: pseudoconvex function
+
+Pseudoconvexity is a looser definition wrt to convexity. Beware that pseudoconvex functions are not always also convex.
+
+\subsection{Minimum Points}
+Beware of the difference between minimum point and minimum. The classification enumerates (names-lists) weak local minimum, strong local minimum and global minimum.
+
+When minimum exists? A handful of theorems can ensure that a minimum exists, just by looking at the function:
+\begin{itemize}
+  \item f continous on a set $\omega \subset R^n$ closed and limited admits a minimum. The problem shiftw towards verifying that the domain is limited.
+  \item
+\end{itemize}
+
+Eg.: a coercive function is not limited but has a global minimum due to the Wierstrass theorem.
+
+Why do we put such emphasis on convex functions?
+when it comes to optimization problems, convex functions ensure that a solution does not exist or, if it exists, that it overlaps with a local minimum.
+This implies a strong semplification of the optimization problem, since it guarantees that if a minimum is found, the reasearch is ended.
+
+We can recognize when we are in a point of local minimum of a function if:
+\begin{itemize}
+  \item if $f$ is of class $C^1$: $\nabla f(x^*) = 0$
+  \item if $f$ is of class $C^2$: TODO
+\end{itemize}
+
+Notice how above, after the "if" just necessary function are enumerated. These conditions are not sufficient.
+
+Sufficient conditions refer to a function $f$ of class $C^2$ in a neighbor of the function:
+\begin{itemize}
+  \item $\nabla f(x^*) = 0$
+  \item $\nabla^2 f(x) > 0$ definite positive (TODO: check)
+\end{itemize}
+
+These conditions are looser if the function is convex. A convex function of class $C^1$ is said to have a global minimum point $x^*$ if and only if: $\nabla f(x^*) = 0$.
+
+TODO: quadratic functions. Quadratic functions are even easier to handle, since we know they are convex, and we explicitly have the matrix of the quadratic form.
+
